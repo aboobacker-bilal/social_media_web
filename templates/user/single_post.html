@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block title %}
+    single post
+{% endblock %}
+
+{% block content %}
+    <img style="width: 15rem; height: 15rem;" src="{{ posts.image.url }}" alt="single ost"></a><br>
+    <p style="color: white">{{ posts.caption }}</p><br>
+    {% if request.user.userprofile == posts.user %}
+    <button><a href="{% url 'delete-post' posts.pk %}">Delete Post</a></button>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Delete Post
+{% endblock %}
+
+{% block content %}
+    <P>Are you sure to Delete<br> <img style="width: 10rem; height: 10rem;" src="{{ posts.image.url }}" alt="Delete Post"></P>
+    <form method="POST" action="">
+        {% csrf_token %}
+        {{ form }}
+        <input type="submit" name="Delete Post">
+        <button type="button"><a href="{% url 'get-user' user.id %}">Go Back</a></button>
+    </form>
+{% endblock %}

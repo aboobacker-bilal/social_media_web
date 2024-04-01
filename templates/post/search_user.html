@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Post
+{% endblock %}
+
+{% block content %}
+    {% if results %}
+    <ul>
+    {% for user in results %}
+        <li><a style="text-decoration: none;" href="{% url 'get-user' user.pk %}">
+            {% if user.profile_pic %}
+            <img style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover;" src="{{ user.profile_pic.url }}" alt="Profile Pic">{% else %}
+            <img class="profile-pic" style="width: 3rem; height: 3rem; border-radius: 50%; object-fit: cover;" src="{% static 'images/Default.png' %}" alt="default profile pic">
+            {% endif %}{{ user.name }}</a></li>
+    {% endfor %}
+    </ul>
+    {% else %}
+        <p>No results found.</p>
+    {% endif %}
+{% endblock %}

@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Login
+{% endblock %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="{% static 'user/user_login.css' %}">
+{% endblock %}
+
+{% block content %}
+    <div class="login-form">
+        <div class="login-box">
+            <p style="color: white;">{{ message }}</p>
+            <div style="color: white;">
+                <form method="post">
+                  {% csrf_token %}
+                  {{ form.as_p }}
+                  <button type="submit">Log In</button>
+                </form>
+            </div>
+            <p style="color: white;">Don't have an account?</p><button>
+            <a style="text-decoration: none; color: white" href="{% url 'sign-up' %}"> Sign Up</a></button>
+        </div>
+    </div>
+{% endblock %}

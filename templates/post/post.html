@@ -1,0 +1,48 @@
+{% extends "base.html" %}
+
+{% block title %}
+    Post
+{% endblock %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+{% endblock %}
+
+{% block content %}
+    <div style="margin-left: 3rem;">
+        {% for post in posts %}
+        <a style="text-decoration: none;" href="{% url 'get-user' post.user.pk %}"><img style="width: 20px; height: 20px; border-radius: 50%; object-fit: cover;"
+                                                         src="{{ post.user.profile_pic.url }}" alt="Profile Pic">
+            <span>{{ post.user }}</span></a><br>
+        <img style="width: 15rem; height: 15rem;" src="{{ post.image.url }}" alt="Post title"><br>
+        <span style="color: white;">{{ post.caption }}</span><br>
+        {% if user.is_authenticated %}
+            {% if post.id in user_likes %}
+                <form action="{% url 'post-like' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" style="color: red; border: none; background-color: black"><i class="fa fa-heart"></i></button>
+                </form>
+            {% else %}
+                <form action="{% url 'post-like' post.pk %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" style="color: white; border: none; background-color: black"><i class="fa fa-heart"></i></button>
+                </form>
+            {% endif %}
+        {% endif %}
+        <p style="color: white;">Likes: {{ post.like_set.count }}</p>
+         <ul>
+            {% for comment in post.comment_set.all %}
+                <li>
+                    <p style="color: white;">{{ comment.user }}: {{ comment.comment }}</p>
+                </li>
+            {% endfor %}
+        </ul>
+        <form action="{% url 'comments' post.pk %}" method="POST">
+            {% csrf_token %}
+            <input name="comment" placeholder="Add Your comment">
+            <button type="submit"><i class="fa fa-arrow-up"></i></button>
+        </form>
+        <p></p>
+        {% endfor %}
+    </div>
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    User Profile
+{% endblock %}
+
+{% block css_file %}
+    <link rel="stylesheet" href="{% static 'user/user_profile.css' %}">
+{% endblock %}
+
+{% block content %}
+    <section style="margin-left: 15rem; padding: 8px">
+        <div>
+            <div class="profile">
+                {% if users.profile_pic %}
+                <img class="profile-pic" style="width: 10rem; height: 10rem;" src="{{ users.profile_pic.url }}" alt="profile pic">
+                {% else %}
+                <img class="profile-pic" style="width: 10rem; height: 10rem;" src="{% static 'images/Default.png' %}" alt="default profile pic">
+                {% endif %}
+                <p style="color: white; margin-left: 20px;">Followers: {{ followers_count }}</p>
+                <p style="color: white; margin-left: 20px;">Following: {{ following_count }}</p>
+            </div>
+            <div class="profile-details">
+                <h3 class="name">{{ users.name }}</h3>
+                <div style="margin-left: 12rem">
+                    {% if users.user != request.user %}
+                        {% if is_following %}
+                            <form action="{% url 'follow' users.pk %}" method="POST">
+                                {% csrf_token %}
+                                <button style="color: white" type="submit">Unfollow</button>
+                            </form>
+                        {% else %}
+                            <form action="{% url 'follow' users.pk %}" method="POST">
+                                {% csrf_token %}
+                                <button style="color: white" type="submit">Follow</button>
+                            </form>
+                        {% endif %}
+                    {% endif %}
+                </div>
+            </div>
+            <span class="bio">{{ users.Bio }}</span>
+            <div style="padding: 10px">
+                {% if request.user == users.user %}
+                <button><a href="{% url 'edit-profile' users.id %}">Edit</a></button>
+                <button><a href="{% url 'add-post' %}">Add Post</a></button>
+                {% endif %}
+            </div>
+            <h5 style="color: white;">Posts</h5>
+            <ul class="posts">
+                {% for post in users.post_set.all %}
+                    <li>
+                        <a href="{% url 'view-post' post.pk %}">
+                        <img style="width: 10rem; height: 10rem;" src="{{ post.image.url }}" alt="post"></a>
+                        <p>{{ post.caption }}</p>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </section>
+{% endblock %}
