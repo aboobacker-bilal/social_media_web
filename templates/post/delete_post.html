@@ -5,7 +5,8 @@
 {% endblock %}
 
 {% block content %}
-    <P>Are you sure to Delete<br> <img style="width: 10rem; height: 10rem;" src="{{ posts.image.url }}" alt="Delete Post"></P>
+    <P style="color: white">Are you sure to Delete<br>
+        <img style="width: 10rem; height: 10rem;" src="{{ post.image.url }}" alt="Delete Post"></P>
     <form method="POST" action="">
         {% csrf_token %}
         {{ form }}

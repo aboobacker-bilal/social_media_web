@@ -13,4 +13,6 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(pre_delete, sender=UserProfile)
 def delete_user_with_profile(sender, instance, **kwargs):
     if instance.user:
+        pre_delete.disconnect(delete_user_with_profile, sender=UserProfile)
         instance.user.delete()
+        pre_delete.connect(delete_user_with_profile, sender=UserProfile)

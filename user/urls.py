@@ -2,12 +2,12 @@ from django.urls import path
 from . import views
 
 urlpatterns = [
-    path("", views.user_login, name="user-login"),
-    path("logout", views.user_logout, name='logout'),
-    path("sign_up", views.user_sign_up, name="sign-up"),
-    path("post_view/<int:pk>/", views.view_post, name="view-post"),
-    path("user/<int:pk>/", views.get_user_profile, name="get-user"),
-    path("edit_pro/<int:user_id>", views.edit_user_profile,
+    path("", views.UserLoginView.as_view(), name="user-login"),
+    path("logout", views.UserLogOutView.as_view(), name='logout'),
+    path("sign_up", views.UserSignUp.as_view(), name="sign-up"),
+    path("user/<int:pk>/", views.UserProfileView.as_view(), name="get-user"),
+    path("edit_pro/<int:pk>", views.EditUserProfile.as_view(),
          name="edit-profile"),
-    path("follow/<int:pk>/", views.user_follow, name="follow"),
+    path("post_view/<int:pk>/", views.PostView.as_view(), name="view-post"),
+    path("follow/<int:pk>/", views.UserFollowView.as_view(), name="follow"),
 ]

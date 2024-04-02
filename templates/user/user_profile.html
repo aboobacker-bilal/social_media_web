@@ -18,8 +18,9 @@
                 {% else %}
                 <img class="profile-pic" style="width: 10rem; height: 10rem;" src="{% static 'images/Default.png' %}" alt="default profile pic">
                 {% endif %}
+                <p style="color: white; margin-left: 20px;">Posts: {{ post_count }}</p>
                 <p style="color: white; margin-left: 20px;">Followers: {{ followers_count }}</p>
-                <p style="color: white; margin-left: 20px;">Following: {{ following_count }}</p>
+                <p style="color: white; margin-left: 20px;">Following: {{ following_count }}</p><br>
             </div>
             <div class="profile-details">
                 <h3 class="name">{{ users.name }}</h3>
@@ -42,7 +43,7 @@
             <span class="bio">{{ users.Bio }}</span>
             <div style="padding: 10px">
                 {% if request.user == users.user %}
-                <button><a href="{% url 'edit-profile' users.id %}">Edit</a></button>
+                <button><a href="{% url 'edit-profile' users.id %}">Edit Profile</a></button>
                 <button><a href="{% url 'add-post' %}">Add Post</a></button>
                 {% endif %}
             </div>
