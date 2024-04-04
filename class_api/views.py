@@ -29,6 +29,7 @@ class GetPostListView(APIView):
     def put(self, request, pk):
         post = get_object_or_404(Post, pk=pk)
         post.caption = request.data['caption']
+        post.save()
         serializer = PostSerializer(post, many=False)
         return Response(serializer.data)
 
