@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'post',
     'user',
+    'graphene_django',
+    'graphql_insta',
 
 ]
 
@@ -147,3 +149,7 @@ MEDIA_ROOT = BASE_DIR / "uploads"
 MEDIA_URL = "/uploads/"
 
 STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')
+
+GRAPHENE = {
+    "SCHEMA": "django_root.schema.schema"
+}
